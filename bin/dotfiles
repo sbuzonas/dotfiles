@@ -1,0 +1,39 @@
+#!/usr/bin/env php
+<?php
+
+/**
+ * This file is part of Dotfiles.
+ *
+ * (c) Steve Buzonas <steve@fancyguy.com
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+if ('cli' !== PHP_SAPI) {
+   printf('Warning: Dotfiles should be invoked via the cli version of PHP not the %s SAPI' . PHP_EOL, PHP_SAPI);
+}
+
+require __DIR__ . '/../src/bootstrap.php';
+
+use Dotfiles\Console\Application;
+
+error_reporting(-1);
+
+if (function_exists('ini_set')) {
+   @ini_set('display_errors', 1);
+
+   $byteConvert = function ($value) {
+       $unit = strtolower(substr($value, -1, 1));
+       return ((int) $value) * pow(1024, ($step = array_search($unit, array('k','m','g'))) ? $step + 1 : 0);
+   };
+
+   $memoryLimit = trim(ini_get('memory_limit'));
+   if ($memoryLimit != -1 && $byteConvert($memoryLimit) < $byteConvert('512m')) {
+       @ini_set('memory_limit', '512M');
+   }
+   unset($byteConvert, $memoryLimit);
+}
+
+$application = new Application();
+$application->run();

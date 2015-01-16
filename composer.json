@@ -1,0 +1,26 @@
+{
+  "name": "slbmeh/dotfiles",
+  "description": "My dotfiles collection powered by composer",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Steve Buzonas",
+      "email": "steve@fancyguy.com"
+    }
+  ],
+  "require": {
+    "psr/log": "~1.0",
+    "symfony/console": "~2.6",
+    "symfony/filesystem": "~2.6"
+  },
+  "autoload": {
+    "psr-0": {
+      "Dotfiles": "src"
+    }
+  },
+  "scripts": {
+    "post-create-project-cmd": [
+      "bin/dotfiles install"
+    ]
+  }
+}

@@ -1,0 +1,30 @@
+if [[ ! -f "$HOME/.bashrc" ]] ; then
+    echo "Missing ~/.bashrc"
+    exit 1
+fi
+
+if [[ "$TERM" == "linux" && "$(type -P fbterm)" ]] ; then
+    export LOGIN_SHELL=$$
+    export FBTERM=1
+    fbterm --vesa-mode=279
+fi
+
+. $HOME/.bashrc
+
+source_file_alternatives $DOTFILES_SCRIPT_DIR/ .profile
+
+source_directory $DOTFILES_SCRIPT_DIR/aliases.d/
+source_directory $DOTFILES_SCRIPT_DIR/completion.d/
+
+if [[ ($TERM = linux || $TERM = fbterm) && -f "$DOTFILES_SCRIPT_DIR/solarized-terminal-colors" ]] ; then
+    . $DOTFILES_SCRIPT_DIR/.solarized-terminal-colors
+fi
+
+# Use local dir_colors if available
+[[ "$(type -P dircolors)" ]] && [ -f "$DOTFILES_SCRIPT_DIR/dircolors" ] && eval `dircolors $DOTFILES_SCRIPT_DIR/dircolors`
+
+# Local Variables:
+# coding: utf-8
+# mode: sh
+# sh-shell: bash
+# End:

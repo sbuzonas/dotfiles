@@ -1,0 +1,67 @@
+# Set a trap to ensure we always run the bash logout script
+shopt -q login_shell || trap '. $HOME/.bash_logout; exit' 0
+
+[ -n "$FBTERM" ] && export TERM=fbterm
+
+if [ -f /etc/bashrc ] ; then
+    . /etc/bashrc
+fi
+
+if [ -f /etc/bash.bashrc ] ; then
+    . /etc/bash.bashrc
+fi
+
+# Case-insensitive globbing (used in pathname expansion)
+shopt -s nocaseglob
+
+# Append to history instead of overwriting it
+shopt -s histappend
+
+# Autocorrect typos in path then using `cd`
+shopt -s cdspell
+
+# Enable some Bash 4 features when possible:
+# * `autocd`, e.g. `**/qux` will enter `./foo/bar/baz/qux`
+# * Recursive globbing, e.g. `echo **/*.txt`
+for option in autocd globstar; do
+    shopt -s "$option" 2> /dev/null
+done
+
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ] ; do # resolve $SOURCE until the file is no longer a symlink
+    DOTFILES_DIR="$(cd -P "$(dirname "$SOURCE")" && pwd)"
+    SOURCE="$(readlink "$SOURCE")"
+    [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
+done
+export DOTFILES_SCRIPT_DIR="$(cd -P "$(dirname "$SOURCE")" && pwd)"
+export DOTFILES_DIR="$(cd -P "$(dirname "$DOTFILES_SCRIPT_DIR")" && pwd)"
+
+for f in `find $DOTFILES_SCRIPT_DIR/functions.d/ -name '*.bash'` ; do
+    . $f
+done
+
+alias lc="lowercase"
+alias uc="uppercase"
+
+export OS=`uname -s | lowercase`
+export OS_RELEASE=$OS-`uname -r`
+
+source_directory $DOTFILES_SCRIPT_DIR/exports.d/
+source_directory $DOTFILES_SCRIPT_DIR/path.d/
+source_directory $DOTFILES_SCRIPT_DIR/aliases.d/
+
+source_file_alternatives $DOTFILES_SCRIPT_DIR/ .bashrc
+
+for p in rbenv pyenv phpenv ; do
+    [[ "$(type -P $p)" ]] && eval "$($p init -)"
+done
+
+source_files /etc/bash_completion
+source_file_alternatives $DOTFILES_SCRIPT_DIR/ .foo
+source_directory $DOTFILES_SCRIPT_DIR/completion.d/
+
+# Local Variables:
+# coding: utf-8
+# mode: sh
+# sh-shell: bash
+# End:
