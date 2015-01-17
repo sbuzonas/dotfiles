@@ -1,0 +1,7 @@
+# Automatically normalize line endings for all text-based files
+* text=auto
+
+# Local Variables:
+# coding: utf-8
+# mode: gitattributes
+# End:
