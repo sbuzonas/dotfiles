@@ -47,3 +47,8 @@
     o           = "!f() { git co --ours $! && git add $@; }; f"
     theirs      = "!f() { git co --theirs $@ && git add $@; }; f"
     t           = "!f() { git co --theirs $@ && git add $@; }; f"
+
+# Local Variables:
+# coding: utf-8
+# mode: gitconfig
+# End:

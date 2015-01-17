@@ -4,3 +4,8 @@
     editor         = emacs
     whitespace     = space-before-tab,indent-with-non-tab,trailing-space
     trustctime     = false
+
+# Local Variables:
+# coding: utf-8
+# mode: gitconfig
+# End:

@@ -11,3 +11,8 @@
     path = {{ include.realPath }}
 {% endfor %}
 {% endif %}
+
+# Local Variables:
+# coding: utf-8
+# mode: gitconfig
+# End:

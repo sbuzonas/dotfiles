@@ -22,3 +22,8 @@
     pushInsteadOf = "git://bitbucket.org/"
 [url "git://bitbucket.org:"]
     insteadOf = "bitbucket:"
+
+# Local Variables:
+# coding: utf-8
+# mode: gitconfig
+# End:

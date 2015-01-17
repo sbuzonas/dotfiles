@@ -13,3 +13,8 @@
     added     = yellow
     changed   = green
     untracked = cyan
+
+# Local Variables:
+# coding: utf-8
+# mode: gitconfig
+# End:

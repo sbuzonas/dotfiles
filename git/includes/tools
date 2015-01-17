@@ -11,3 +11,8 @@
     autocorrect = 1
 [log]
     date = local
+
+# Local Variables:
+# coding: utf-8
+# mode: gitconfig
+# End:
