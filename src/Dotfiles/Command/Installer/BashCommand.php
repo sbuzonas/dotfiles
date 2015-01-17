@@ -21,6 +21,7 @@ class BashCommand extends AbstractInstallerCommand
         return array(
             'bashrc'  => '.bashrc',
             'profile' => '.bash_profile',
+			'logout'  => '.bash_logout'
         );
     }
 
