@@ -9,6 +9,7 @@
     }
   ],
   "require": {
+    "composer/composer": "1.0.x-dev",
     "psr/log": "~1.0",
     "symfony/console": "~2.6",
     "symfony/filesystem": "~2.6"
@@ -20,7 +21,7 @@
   },
   "scripts": {
     "post-create-project-cmd": [
-      "bin/dotfiles install"
+      "Dotfiles\\Composer\\EventHandler::postCreateProject"
     ]
   }
 }
