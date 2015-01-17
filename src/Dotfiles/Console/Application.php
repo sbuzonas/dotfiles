@@ -73,6 +73,7 @@ EOASCII;
         
         $defaultCommands[] = new Command\InstallCommand();
         $defaultCommands[] = new Command\Installer\BashCommand();
+		$defaultCommands[] = new Command\Installer\GitCommand();
         
         return $defaultCommands;
     }

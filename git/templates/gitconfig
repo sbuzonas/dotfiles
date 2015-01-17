@@ -1,0 +1,13 @@
+[user]
+    name = {{ authorName }}
+    email = {{ authorEmail }}
+[credential]
+    helper = {{ credentialHelper }}
+[push]
+    default = {{ pushDefault }}
+{% if includes %}
+[include]
+{% for include in includes %}
+    path = {{ include.realPath }}
+{% endfor %}
+{% endif %}

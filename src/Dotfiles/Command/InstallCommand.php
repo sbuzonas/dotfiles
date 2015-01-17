@@ -21,6 +21,7 @@ class InstallCommand extends Command
 
     protected $installedModules = array();
     protected $currentModule;
+	protected $runnerDepth = 0;
     
     protected function configure()
     {
@@ -37,11 +38,12 @@ EOT
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+		$this->runnerDepth++;
         if ($input->isInteractive()) {
-            while ('q' !== $this->currentModule) {
+            while ('q' !== $this->currentModule && $this->runnerDepth <= 1) {
                 $modules = $this->getUninstalledModules();
                 $this->runModuleCommand($modules[$this->currentModule], $input, $output);
-                if (count($this->getUninstalledModules()) > 0) {
+                if (count($this->getUninstalledModules()) > 0 && $this->runnerDepth == 1) {
                     $this->run($input, $output);
                 } else {
                     $this->getLogger()->notice('Nothing left to install.');
@@ -49,6 +51,7 @@ EOT
                 }
             }
         }
+		$this->runnerDepth--;
     }
 
     protected function interact(InputInterface $input, OutputInterface $output)

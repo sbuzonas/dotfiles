@@ -26,9 +26,23 @@ The <info>%s</info> command installs the %s configuration
 files included within this dotfiles repository.
 EOT;
 
+	/**
+	 * @var \Twig_Environment
+	 */
+	protected $twig;
+
     public function __construct() {
         parent::__construct($this->getCommandName());
     }
+
+	protected function getOSName() {
+		return strtolower(php_uname('s'));
+	}
+
+	protected function hostIsOSX()
+	{
+		return 'darwin' === $this->getOSName();
+	}
 
     protected function getCommandName() {
         return sprintf('install:%s', $this->getInstallerName());
@@ -57,7 +71,8 @@ EOT;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output) {
-        $this->installSymlinks($input);
+		$this->installTemplates();
+        $this->installSymlinks();
     }
     
     protected function configure()
@@ -68,11 +83,15 @@ EOT;
         ;
     }
     
-    protected function installSymlinks(InputInterface $input) {
-        $this->getLogger()->notice(sprintf('Installing symlinks'));
+    protected function installSymlinks() {
+		if (!$symlinks = $this->getSymlinks()) {
+			$this->getLogger()->debug(sprintf('No symlinks to create'));
+			return true;
+		}
+        $this->getLogger()->notice(sprintf('Creating symlinks'));
         $fs = new Filesystem();
         try {
-            foreach ($this->getSymlinks() as $source => $target) {
+            foreach ($symlinks as $source => $target) {
                 $source = sprintf('%s/%s', $this->getInstallerResourcePath(), $source);
                 $target = sprintf('%s/%s', $this->getInstallerTargetPath(), $target);
                 $this->getLogger()->info(sprintf('Linking <comment>%s</comment> to <comment>%s</comment>', $source, $target));
@@ -84,10 +103,62 @@ EOT;
         }
     }
 
+	protected function installTemplates() {
+		if (!$templates = $this->getTemplates()) {
+			$this->getLogger()->debug(sprintf('No templates to process'));
+			return true;
+		}
+		$this->getLogger()->notice(sprintf('Processing templates'));
+		$fs = new Filesystem();
+		try {
+			$twig = $this->getTwigEnvironment();
+			foreach ($templates as $target => list($template, $vars)) {
+				$this->getLogger()->info(sprintf('Processing template %s', $template));
+				$target = sprintf('%s/%s', $this->getInstallerTargetPath(), $target);
+				$fs->dumpFile($target, $twig->render($template, $vars));
+			}
+		} catch (IOExceptionInterface $ioe) {
+            $this->getLogger()->error(sprintf('An error occurred while saving template at %s.', $ioe->getPath()));
+			return false;
+		}
+		return true;
+	}
+
     protected function getLogger() {
         return $this->getApplication()->getLogger();
     }
 
-    abstract protected function getSymlinks();
+	protected function ask($output, $question, $default = null)
+	{
+		return $this->getHelper('dialog')->ask($output, $question, $default);
+	}
+
+	protected function askConfirmation($output, $question, $default = true)
+	{
+		return $this->getHelper('dialog')->askConfirmation($output, $question, $default);
+	}
+
+	protected function askAndValidate($output, $question, $validator, $attempts = false, $default = null)
+	{
+		return $this->getHelper('dialog')->askAndValidate($output, $question, $validator, $attempts, $default);
+	}
+
+	protected function getTwigEnvironment() {
+		if (!$this->twig) {
+			$loader = new \Twig_Loader_Filesystem($this->getInstallerResourcePath().'/templates');
+			$this->twig =  new \Twig_Environment($loader, array(
+				'cache' => $this->getDotfilesRoot().'/cache/twig',
+			));
+		}
+		return $this->twig;
+	}
+
+    protected function getSymlinks() {
+		return array();
+	}
+
+	protected function getTemplates() {
+		return array();
+	}
 
 }

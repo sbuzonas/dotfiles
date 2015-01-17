@@ -11,17 +11,15 @@
 
 namespace Dotfiles\Command\Installer;
 
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
-
 class BashCommand extends AbstractInstallerCommand
 {
 
-    protected function getSymlinks() {
+    protected function getSymlinks()
+	{
         return array(
             'bashrc'  => '.bashrc',
             'profile' => '.bash_profile',
-			'logout'  => '.bash_logout'
+			'logout'  => '.bash_logout',
         );
     }
 
