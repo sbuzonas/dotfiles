@@ -2,7 +2,7 @@
 ###################
 set -g pane-border-fg colour236
 set -g pane-border-bg colour235
-set -g pane-active-border-fg yellow
+set -g pane-active-border-fg colour240
 set -g pane-active-border-bg colour235
 
 set -g display-panes-active-colour yellow
@@ -44,7 +44,7 @@ set -g status-left-length 70
 # show host name and IP address
 set -g status-left "#[fg=green]: #h : #[fg=brightblue]#(dig +short myip.opendns.com @resolver1.opendns.com | sed 's/;;.*//g') #[fg=yellow]#(ifconfig en0 | grep 'inet ' | awk '{print \"en0 \" $2}') #(ifconfig eth0 | grep 'inet ' | awk '{print \"eth0 \" $2}') #(ifconfig en1 | grep 'inet ' | awk '{print \"en1 \" $2}') #(ifconfig eth1 | grep 'inet ' | awk '{print \"eth1 \" $2}') #[fg=#d75f00]#(ifconfig ham0 | grep 'inet ' | awk '{print \"ham0 \" $2}') #[fg=red]#(ifconfig utun0 | grep 'inet ' | awk '{print \"vpn \" $2}') #(ifconfig utun1 | grep 'inet ' | awk '{print \"vpn \" $2}') "
 set -g status-right-length 60
-set -g status-right "#[fg=yellow]#S #I:#P #[fg=#d75f00]:: %d %b #(date '+%%H:%%M %%Z') :: #(date -u '+%%H:%%M %%Z') :: #[fg=brightblue]#(battery Discharging)#[fg=blue]#(battery Charging)"
+set -g status-right "#[fg=yellow]#S #I:#P #[fg=#d75f00]:: %d %b #(date '+r%%H:%%M %%Z') :: #(date -u '+%%H:%%M %%Z') :: #[fg=brightblue]#(battery Discharging)#[fg=blue]#(battery Charging)"
 
 # show status messages much longer
 set -g display-time 4000
