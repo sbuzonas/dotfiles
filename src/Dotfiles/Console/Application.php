@@ -74,6 +74,7 @@ EOASCII;
         $defaultCommands[] = new Command\InstallCommand();
         $defaultCommands[] = new Command\Installer\BashCommand();
 		$defaultCommands[] = new Command\Installer\GitCommand();
+        $defaultCommands[] = new Command\Installer\TmuxCommand();
         
         return $defaultCommands;
     }
