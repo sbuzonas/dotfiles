@@ -14,7 +14,7 @@ alias rot13='tr a-zA-Z n-za-mN-ZA-M'
 # URL-encode strings
 alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);"'
 
-alias ipaddr='dig + short myip.opendns.com @resolver1.opendns.com'
+alias ipaddr='dig +short myip.opendns.com @resolver1.opendns.com'
 IPV4_OCTET="(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])"
 IPV4_ADDR="($IPV4_OCTET\.){3,3}$IPV4_OCTET"
 IPV6_OCTET="[0-9a-fA-F]{1,4}"
