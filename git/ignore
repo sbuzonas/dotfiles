@@ -1,0 +1,46 @@
+## OSX
+#######
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# Files that might appear on external disk
+.Spotlight-V100
+.Trashes
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+## Tags
+########
+GTAGS
+GRTAGS
+GPATH
+
+## Emacs
+#########
+*~
+\#*\#
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# Org-mode
+.org-id-locations
+*_archive
+
+# flymake-mode
+*_flymake.*
+
+# Local Variables:
+# coding: utf-8
+# mode: gitignore
+# End:
