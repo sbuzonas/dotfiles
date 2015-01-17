@@ -1,0 +1,13 @@
+[merge]
+    # Include summaries of merged commits in newly created merge commit messages
+    log = true
+[apply]
+    whitespace = fix
+[mergetool]
+    keepBackup = false
+[difftool]
+    prompt = false
+[help]
+    autocorrect = 1
+[log]
+    date = local
