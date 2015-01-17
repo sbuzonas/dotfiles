@@ -1,0 +1,24 @@
+# URL shortcuts
+[url "git@github.com:"]
+    insteadOf     = "gh:"
+    insteadOf     = "https://github.com/"
+    pushInsteadOf = "github:"
+    pushInsteadOf = "git://github.com/"
+[url "git://github.com/"]
+    insteadOf = "github:"
+[url "git@gist.github.com:"]
+    insteadOf     = "gst:"
+    pushInsteadOf = "gist:"
+    pushInsteadOf = "git://gist.github.com/"
+[url "git@bits.fancyguy.com:"]
+    insteadOf     = "fg:"
+    pushInsteadOf = "fancyguy:"
+    pushInsteadOf = "git://bits.fancyguy.com/"
+[url "git://bits.fancyguy.com/"]
+    insteadOf = "fancyguy:"
+[url "git@bitbucket.org:"]
+    insteadOf     = "bb:"
+    pushInsteadOf = "bitbucket:"
+    pushInsteadOf = "git://bitbucket.org/"
+[url "git://bitbucket.org:"]
+    insteadOf = "bitbucket:"
