@@ -1,0 +1,37 @@
+# terminal options
+set -g default-terminal "screen-256color"
+set -g history-limit 5000
+set -g status-utf8 on
+setw -g xterm-keys on
+# extra env vars to pass on
+set -ga update-environment ' ITERM_PROFILE ITERM_THEME'
+
+# window start at 1
+set -g base-index 1
+setw -g pane-base-index 1
+
+# mouse mode
+setw -g mouse-mode on
+set -g mouse-select-pane on
+set -g mouse-resize-pane on
+set -g mouse-select-window on
+
+# rebind prefix key and send it like screen does
+set -g prefix `
+bind ` send-prefix
+
+# swap the prefix for times like pasting code with ` characters
+unbind C-b
+bind C-a set -g prefix C-b
+bind C-b set -g prefix `
+
+# easy reload source file
+bind r source ~/.tmux.conf \; display-message "configuration reloaded"
+
+# rebind splits
+unbind %
+bind | split-window -h
+bind - split-window -v
+
+# pipe pane to log file
+bind p pipe-pane -o "cat >>$HOME/#W-tmux.log" \; display-message "Toggled logging to $HOME/#W-tmux-log"

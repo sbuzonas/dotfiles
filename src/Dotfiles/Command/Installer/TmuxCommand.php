@@ -21,8 +21,20 @@ class TmuxCommand extends AbstractInstallerCommand
     protected function getTemplates()
     {
         return array(
-            '.tmux.conf' => array('tmux.conf', array()),
+            '.tmux.conf' => array('tmux.conf', array('includes' => $this->getIncludes())),
         );
+    }
+
+    private function getIncludes()
+    {
+		try {
+			$finder = new Finder();
+			$finder->files()->in($this->getInstallerResourcePath().'/include');
+		} catch (\InvalidArgumentException $iae) {
+			$this->getLogger()->warning($iae->getMessage());
+			$finder = new \ArrayIterator();
+		}
+        return iterator_to_array($finder);
     }
     
 }
