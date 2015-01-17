@@ -38,4 +38,4 @@ alias flushdns="dscacheutil -flushcache && killall -HUP mDNSResponder"
 alias primaryif="ifconfig | tr '\t' ' ' | tr -s [:space:] | sed -e '/^ [^s]/d' | grep --color=never -B1 'status: active' | sed -e '/^ /d' -e 's/\(.*\):.*$/\1/' | tr '\n' ' ' | cut -d ' ' -f1"
 alias localip="ipconfig getifaddr $(primaryif)"
 
-alias sysupdate='sudo sofwareupdate -i -a; brew update; brew upgrade; brew cleanup'
+alias sysupdate='sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup'
