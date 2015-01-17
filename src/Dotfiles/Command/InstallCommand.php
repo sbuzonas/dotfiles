@@ -21,6 +21,7 @@ class InstallCommand extends Command
 
     protected $installedModules = array();
     protected $currentModule;
+    protected $installMode;
 	protected $runnerDepth = 0;
     
     protected function configure()
@@ -43,7 +44,7 @@ EOT
             while ('q' !== $this->currentModule && $this->runnerDepth <= 1) {
                 $modules = $this->getUninstalledModules();
                 $this->runModuleCommand($modules[$this->currentModule], $input, $output);
-                if (count($this->getUninstalledModules()) > 0 && $this->runnerDepth == 1) {
+                if (count($this->getUninstalledModules()) > 0) {
                     $this->run($input, $output);
                 } else {
                     $this->getLogger()->notice('Nothing left to install.');
@@ -56,17 +57,48 @@ EOT
 
     protected function interact(InputInterface $input, OutputInterface $output)
     {
+        if (!$this->installMode) {
+            $this->installMode = $this->selectInstallationMethod($input, $output);
+        }
+
+        if ('q' === $this->installMode) {
+            $this->currentModule = 'q';
+        } else if ('a' === $this->installMode) {
+            $this->currentModule = 0;
+        } else {
+            $this->currentModule = $this->selectModuleToInstall($input, $output);
+        }
+    }
+
+    protected function selectModuleToInstall(InputInterface $input, OutputInterface $output)
+    {
         $choices = $this->getModuleChoices();
         $choices[] = "<comment>q</comment>: Quit the installer\n";
         $choices[] = "<question>Choose a module to install:</question> ";
 
-        $this->currentModule = $this->getHelper('dialog')->askAndValidate($output, $choices, function ($selectedModule) {
+        return $this->getHelper('dialog')->askAndValidate($output, $choices, function ($selectedModule) {
             $selectedModule = is_numeric($selectedModule) ? $selectedModule - 1 : $selectedModule;
             if (!in_array($selectedModule, array_merge(array_keys($this->getUninstalledModules()), array('q')))) {
                 throw new \InvalidArgumentException('Invalid module');
             }
             return $selectedModule;
         }, 10);
+    }
+
+    protected function selectInstallationMethod(InputInterface $input, OutputInterface $output)
+    {
+        $choices = array(
+            "<comment>a</comment>: Install all modules\n",
+            "<comment>i</comment>: Install interactively\n",
+            "<comment>q</comment>: Quit the installer\n",
+            "<question>Select installation method:</question> ",
+        );
+        return $this->getHelper('dialog')->askAndValidate($output, $choices, function ($selectedMethod) {
+            if (!in_array($selectedMethod, array('a','i','q'))) {
+                throw new \InvalidArgumentException('Invalid installation method');
+            }
+            return $selectedMethod;
+        });
     }
 
     private function runModuleCommand($module, InputInterface $input, OutputInterface $output) {
@@ -88,7 +120,7 @@ EOT
 
     private function getUninstalledModules()
     {
-        return array_diff($this->getModules(), $this->installedModules);
+        return array_values(array_diff($this->getModules(), $this->installedModules));
     }
 
     private function getModules()
