@@ -1,2 +1,7 @@
 vendor/
 cache/
+
+# Local Variables:
+# coding: utf-8
+# mode: gitignore
+# End:
