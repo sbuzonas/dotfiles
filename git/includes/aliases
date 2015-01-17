@@ -1,0 +1,49 @@
+[alias]
+    au          = add -u	
+    ap          = add -p .
+    co          = checkout
+    ci          = commit
+    ca          = commit --amend --no-edit
+    cam         = commit --amend
+    f           = fetch
+    p           = push
+    m           = merge
+    st          = status -s
+    cl          = clone
+    br          = branch
+    d           = diff --word-diff
+    diff        = diff --word-diff
+    dc          = diff --cached
+    r           = reset
+    rh          = reset --hard
+    r1          = reset HEAD^
+    r1h         = reset HEAD^ --hard
+    l           = "log --pretty='%C(bold yellow)%h%Creset%Cred%d%Creset %s%Cgreen [%cn]' --decorate"
+    g           = "log --graph --pretty='%C(bold yellow)%h%Creset%Cred%d%Creset %s%Cgreen [%cn]' --decorate"
+    ll          = "log --pretty='%C(bold yellow)%h$Creset%Cred%d%Creset %s%Cgreen [%cn]' --decorate --numstat"
+    ld          = "log --pretty='%C(bold yellow)%h %C(cyan)%ad%Creset%Cred%d %Creset%s%Cgreen [%cn]' --decorate --date=short"
+    le          = "log --oneline --decorate"
+    filelog     = log -u
+    fl          = log -u
+    dl          = "!git ll -1"
+    dlc         = diff --cached HEAD^
+    dr          = "!f() { git diff "$1"^.."$1"; }; f"
+    lc          = "!f() { git ll "$1"^.."$1"; }; f"
+    diffr       = "!f() { git diff "$1"^.."$1"; }; f"
+    s           = "!git ls-files | grep -i"
+    grep        = grep -Ii
+    gr          = grep -Ii
+    gra         = "!f() { A=$(pwd) && TOPLEVEL=$(git rev-parse --show-toplevel) && cd $TOPLEVEL && git grep --full-name -In $1 | xargs -I{} echo $TOPLEVEL/{} && cd $A; }; f"
+    la          = "!git config -l | grep alias | cut -c 7-"
+    mktrim      = "!f() { git branch | grep "$1" | cut -c 3- | grep -v trim | xargs -I{} git branch -m {} trim-{}; }; f"
+    assume      = update-index --assume-unchanged
+    unassume    = update-inxed --no-assume-unchanged
+    assumed     = "!git ls-files -v | grep ^h | cut -c 3-"
+    unassumeall = "!git assumed | xargs git update-index --no-assume-unchanged"
+    assumeall   = "!git st -s | awk {'print $2'} | xargs git assume"
+    lasttag     = describe --tags --abbrev=0
+    lt          = describe --tags --abbrev=0
+    ours        = "!f() { git co --ours $@ && git add $@; }; f"
+    o           = "!f() { git co --ours $! && git add $@; }; f"
+    theirs      = "!f() { git co --theirs $@ && git add $@; }; f"
+    t           = "!f() { git co --theirs $@ && git add $@; }; f"
