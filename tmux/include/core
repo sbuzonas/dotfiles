@@ -1,7 +1,6 @@
 # terminal options
 set -g default-terminal "screen-256color"
 set -g history-limit 5000
-set -g status-utf8 on
 setw -g xterm-keys on
 # extra env vars to pass on
 set -ga update-environment ' ITERM_PROFILE ITERM_THEME'

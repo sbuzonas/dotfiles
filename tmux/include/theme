@@ -20,7 +20,7 @@ setw -g clock-mode-colour yellow
 ## statusbar style
 ###################
 set -g status-utf8 on
-set -g status-interval 30 # default 15
+set -g status-interval 45 # default 15
 set -g status-justify centre
 set -g status-position top
 
@@ -41,10 +41,11 @@ setw -g window-status-current-attr bright
 ## statusbar contents
 ######################
 set -g status-left-length 70
-# show host name and IP address
-set -g status-left "#[fg=green]: #h : #[fg=brightblue]#(dig +short myip.opendns.com @resolver1.opendns.com | sed 's/;;.*//g') #[fg=yellow]#(ifconfig en0 | grep 'inet ' | awk '{print \"en0 \" $2}') #(ifconfig eth0 | grep 'inet ' | awk '{print \"eth0 \" $2}') #(ifconfig en1 | grep 'inet ' | awk '{print \"en1 \" $2}') #(ifconfig eth1 | grep 'inet ' | awk '{print \"eth1 \" $2}') #[fg=#d75f00]#(ifconfig ham0 | grep 'inet ' | awk '{print \"ham0 \" $2}') #[fg=red]#(ifconfig utun0 | grep 'inet ' | awk '{print \"vpn \" $2}') #(ifconfig utun1 | grep 'inet ' | awk '{print \"vpn \" $2}') "
+# show host name and IP address ;; this would be way too much if all were available, mac has en prefix ifs and linux eth
+#      generally only one hamachi connection if any, and only one vpn at a time, so at most 4 ips
+set -g status-left "#[fg=green]: #h : #[fg=brightblue]#(myips public) #[fg=yellow]#(myips en0) #(myips eth0) #(myips en1) #(myips eth1) #[fg=#d75f00]#(myips ham0) #[fg=red]#(myips utun0) #(myips utun1) "
 set -g status-right-length 60
-set -g status-right "#[fg=yellow]#S #I:#P #[fg=#d75f00]:: %d %b #(date '+%%H:%%M %%Z') :: #(date -u '+%%H:%%M %%Z') :: #[fg=brightblue]#(battery Discharging)#[fg=blue]#(battery Charging)"
+set -g status-right "#[fg=yellow]#S #I:#P #[fg=#d75f00]:: %A :: %d %b #(date '+%%H:%%M %%Z') :: #(date -u '+%%H:%%M %%Z') :: #[fg=brightblue]#(battery Discharging)#[fg=blue]#(battery Charging)"
 
 # show status messages much longer
-set -g display-time 4000
+set -g display-time 3000

@@ -15,12 +15,6 @@ alias rot13='tr a-zA-Z n-za-mN-ZA-M'
 alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);"'
 
 alias ipaddr='dig +short myip.opendns.com @resolver1.opendns.com'
-IPV4_OCTET="(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])"
-IPV4_ADDR="($IPV4_OCTET\.){3,3}$IPV4_OCTET"
-IPV6_OCTET="[0-9a-fA-F]{1,4}"
-IPV6_ADDR="(($IPV6_OCTET:){7,7}$IPV6_OCTET|($IPV6_OCTET:){1,7}:|($IPV6_OCTET:){1,6}:$IPV6_OCTET|($IPV6_OCTET:){1,5}(:$IPV6_OCTET){1,2}|($IPV6_OCTET:){1,4}(:$IPV6_OCTET){1,3}|($IPV6_OCTET:){1,3}(:$IPV6_OCTET){1,4}|($IPV6_OCTET:){1,2}(:$IPV6_OCTET){1,5}|$IPV6_OCTET:((:$IPV6_OCTET){1,6})|:((:$IPV6_OCTET){1,7}|:)|fe80:(:$IPV6_OCTET){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}($IPV4_ADDR)|($IPV6_OCTET:){1,4}:($IPV4_ADDR))"
-alias ips="ifconfig -a | grep -Eo '((inet (addr:)?\s?$IPV4_ADDR)|(inet6 (addr:)?\s?$IPV6_ADDR))' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print}'"
-
 alias whois="whois -h whois-servers.net"
 
 # View HTTP traffic
