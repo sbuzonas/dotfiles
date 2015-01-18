@@ -14,11 +14,18 @@
     "symfony/console": "~2.6",
     "symfony/filesystem": "~2.6",
     "symfony/finder": "~2.6",
+    "symfony/process": "~2.6",
     "twig/twig": "~1.17"
   },
   "autoload": {
     "psr-0": {
       "Dotfiles": "src"
+    }
+  },
+  "bin": ["bin/dotfiles"],
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.x-dev"
     }
   },
   "scripts": {

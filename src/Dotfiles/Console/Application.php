@@ -22,7 +22,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 class Application extends BaseApplication
 {
 
-    const VERSION = '0.1.0';
+    const VERSION = '@package_version@';
+    const RELEASE_DATE = '@release_date@';
     
     private static $asciiLogo = <<<EOASCII
 ________      _________________________
@@ -64,6 +65,11 @@ EOASCII;
 
     public function getLogger() {
         return $this->logger;
+    }
+
+    public function getLongVersion()
+    {
+        return parent::getLongVersion() . ' ' . self::RELEASE_DATE;
     }
 
     protected function getDefaultCommands()
