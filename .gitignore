@@ -1,5 +1,6 @@
 vendor/
 cache/
+dotfiles.phar
 
 # Local Variables:
 # coding: utf-8
