@@ -129,8 +129,15 @@ class Compiler
             $content = "\n".$content."\n";
         }
 
-        if ($path == 'src/Dotfiles/Console/Application.php') {
-            $content = str_replace(array('@package_version@', '@release_date@'), array($this->version, $this->versionDate), $content);
+        if ($path == 'src/Dotfiles/Dotfiles.php') {
+            $content = str_replace(
+                array(
+                    '@package_version@',
+                    '@release_date@',
+                ), array(
+                    $this->version,
+                    $this->versionDate,
+                ), $content);
         }
 
         $phar->addFromString($path, $content);

@@ -11,6 +11,7 @@
 namespace Dotfiles\Console;
 
 use Dotfiles\Command;
+use Dotfiles\Dotfiles;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Application as BaseApplication;
 use Symfony\Component\Console\Command\Command as ConsoleCommand;
@@ -22,9 +23,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 class Application extends BaseApplication
 {
 
-    const VERSION = '@package_version@';
-    const RELEASE_DATE = '@release_date@';
-    
     private static $asciiLogo = <<<EOASCII
 ________      _________________________
 ___  __ \_______  /___  ____/__(_)__  /____________
@@ -51,7 +49,7 @@ EOASCII;
             date_default_timezone_set(@date_default_timezone_get());
         }
 
-        parent::__construct('DotFiles', self::VERSION);
+        parent::__construct('DotFiles', Dotfiles::VERSION);
     }
 
     public function getHelp()
@@ -69,7 +67,7 @@ EOASCII;
 
     public function getLongVersion()
     {
-        return parent::getLongVersion() . ' ' . self::RELEASE_DATE;
+        return parent::getLongVersion() . ' ' . Dotfiles::RELEASE_DATE;
     }
 
     protected function getDefaultCommands()
