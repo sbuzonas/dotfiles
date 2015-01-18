@@ -67,7 +67,7 @@ EOT;
     }
 
     protected function getDotfilesRoot() {
-        return strstr(__DIR__, dirname(str_replace('\\', DIRECTORY_SEPARATOR, 'src\\' . get_class($this))), true);
+        return strstr(__DIR__, dirname(str_replace('\\', DIRECTORY_SEPARATOR, 'src\\' . get_class($this))), true) . 'modules' . DIRECTORY_SEPARATOR;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output) {
