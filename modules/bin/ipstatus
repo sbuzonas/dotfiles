@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+case $1 in
+     "local")
+	 echo "$(myips en0) $(myips eth0) $(myips en1) $(myips eth1) $(myips en2) $(myips eth2) $(myips en3) $(myips eth3)" | tr -s [[:space:]]
+	 ;;
+     "hamachi")
+	 echo "$(myips ham0)" | tr -s [[:space:]]
+	 ;;
+     "vpn")
+	 echo "$(myips utun0) $(myips utun1)" | tr -s [[:space:]]
+	 ;;
+esac
+
+# Local Variables:
+# coding: utf-8
+# mode: sh
+# sh-shell: bash
+# End:

@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 IPV4_OCTET="(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])"
 IPV4_ADDR="($IPV4_OCTET\.){3,3}$IPV4_OCTET"
 IPV6_OCTET="[0-9a-fA-F]{1,4}"
@@ -7,13 +9,13 @@ get_if_ips ()
 {
     case $2 in
 	"4")
-	    echo $(ifconfig $1 | grep 'inet ' | awk '{print $2}')
+	    echo $(ifconfig $1 2>/dev/null | grep 'inet ' | awk '{print $2}')
 	    ;;
 	"6")
-	    echo $(ifconfig $1 | grep 'inet6 ' | awk '{print $2}')
+	    echo $(ifconfig $1 2>/dev/null | grep 'inet6 ' | awk '{print $2}')
 	    ;;
 	*)
-	    echo $(ifconfig $1 | grep 'inet' | awk '{print $2}')
+	    echo $(ifconfig $1 2>/dev/null | grep 'inet' | awk '{print $2}')
 	;;
     esac
 }
