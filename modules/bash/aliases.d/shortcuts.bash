@@ -21,6 +21,8 @@ alias md="mkdir"
 alias tsb="tmux showb"
 alias tcp="tmux showb | pbcopy"
 alias vbm="VBoxManage"
+alias bundles="cd ~/projects/FancyGuy/Bundles"
+alias h="cd ~/projects/FancyGuy/heroku"
 
 # Local Variables:
 # coding: utf-8
