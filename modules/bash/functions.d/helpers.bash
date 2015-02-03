@@ -31,6 +31,10 @@ function source_directory() {
     done
 }
 
+function deduplicate_path() {
+    echo $(echo "$1" | awk -v RS=':' -v ORS=':' '!a[$1]++{if (NR >1) printf ORS; printf $a[$1]}')
+}
+
 # From http://stackoverflow.com/questions/370047/#370255
 function path_remove() {
     SAVEIFS=$IFS

@@ -47,18 +47,21 @@ export OS=`uname -s | lowercase`
 export OS_RELEASE=$OS-`uname -r`
 
 source_directory $DOTFILES_SCRIPT_DIR/exports.d/
+echo $PATH
 source_directory $DOTFILES_SCRIPT_DIR/path.d/
+echo $PATH
 source_directory $DOTFILES_SCRIPT_DIR/aliases.d/
 
 source_file_alternatives $DOTFILES_SCRIPT_DIR/ .bashrc
 
+source_files /etc/bash_completion
+#source_file_alternatives $DOTFILES_SCRIPT_DIR/ .foo
+source_directory $DOTFILES_SCRIPT_DIR/completion.d/
+
 for p in rbenv pyenv phpenv ; do
     [[ "$(type -P $p)" ]] && eval "$($p init -)"
 done
-
-source_files /etc/bash_completion
-source_file_alternatives $DOTFILES_SCRIPT_DIR/ .foo
-source_directory $DOTFILES_SCRIPT_DIR/completion.d/
+export PATH="$(deduplicate_path $PATH)"
 
 # Local Variables:
 # coding: utf-8
