@@ -47,9 +47,7 @@ export OS=`uname -s | lowercase`
 export OS_RELEASE=$OS-`uname -r`
 
 source_directory $DOTFILES_SCRIPT_DIR/exports.d/
-echo $PATH
 source_directory $DOTFILES_SCRIPT_DIR/path.d/
-echo $PATH
 source_directory $DOTFILES_SCRIPT_DIR/aliases.d/
 
 source_file_alternatives $DOTFILES_SCRIPT_DIR/ .bashrc
